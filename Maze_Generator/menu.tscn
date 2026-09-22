@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://co40vv38as41q"]
+
+[ext_resource type="Script" uid="uid://cemkm31376u3i" path="res://Menu.cs" id="1_lti8b"]
+
+[node name="Menu" type="CanvasLayer" unique_id=1924582048]
+script = ExtResource("1_lti8b")
+
+[node name="Control" type="Control" parent="." unique_id=1774989776]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=339125263]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.32941177, 0.5176471, 0.5921569, 0.6901961)
+
+[node name="Label" type="Label" parent="Control" unique_id=1021359313]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 132.0
+offset_right = 559.0
+offset_bottom = 192.0
+theme_override_colors/font_color = Color(0, 0.29411766, 1, 1)
+text = "MazeSize"
+
+[node name="Start" type="Button" parent="Control" unique_id=1897742677]
+layout_mode = 0
+offset_left = 291.0
+offset_top = 156.0
+offset_right = 361.0
+offset_bottom = 190.0
+text = "start"
+
+[node name="MazeSize" type="LineEdit" parent="Control" unique_id=2068124412]
+layout_mode = 0
+offset_left = 398.0
+offset_top = 159.0
+offset_right = 466.5
+offset_bottom = 190.0
+text = "3"
+
+[connection signal="pressed" from="Control/Start" to="." method="on_start_pressed"]
+[connection signal="text_submitted" from="Control/MazeSize" to="." method="on_maze_size_text_submitted"]

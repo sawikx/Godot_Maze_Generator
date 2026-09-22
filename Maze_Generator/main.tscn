@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bw1nli4ma1a7v"]
+
+[ext_resource type="Script" uid="uid://bhl2yi3txdoyn" path="res://Main.cs" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dnkf5ni0bbj48" path="res://segment_square_1.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bei4nhkf8lwdo" path="res://player_controller/PlayerController.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://co40vv38as41q" path="res://menu.tscn" id="4_1bvp3"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_1bvp3"]
+albedo_color = Color(0.2784314, 0.47058824, 0.7647059, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ftfdk"]
+material = SubResource("ORMMaterial3D_1bvp3")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_06v1s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftfdk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_06v1s"]
+material = SubResource("StandardMaterial3D_ftfdk")
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ftfdk"]
+size = Vector3(1, 0.2, 1)
+
+[node name="Main" type="Node" unique_id=1373983112]
+script = ExtResource("1_ig7tw")
+Segment1 = ExtResource("2_0xm2m")
+SizeOfMaze = 3
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=1865417825]
+
+[node name="Camera3D" type="Camera3D" parent="Marker3D" unique_id=367855792]
+transform = Transform3D(1, 0, 0, 0, 0.0034906357, 0.9999939, 0, -0.9999939, 0.0034906357, 5.430257, 17.767294, 5.9506726)
+current = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=949770855]
+transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=382353029]
+mesh = SubResource("BoxMesh_ftfdk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1626244086]
+shape = SubResource("BoxShape3D_06v1s")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=172145954]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 36.12326, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=1087255609 instance=ExtResource("3_h2yge")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+WalkSpeed = 3.3
+SprintSpeed = 5.5
+CrouchSpeed = 2.0
+
+[node name="Menu" parent="." unique_id=1924582048 instance=ExtResource("4_1bvp3")]
+
+[node name="Meta" type="Area3D" parent="." unique_id=1632212311]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3345268, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Meta" unique_id=644846683]
+mesh = SubResource("BoxMesh_06v1s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Meta" unique_id=1708107345]
+shape = SubResource("BoxShape3D_ftfdk")
+
+[connection signal="EndGame" from="." to="Menu" method="EndGame_event"]
+[connection signal="StartGame" from="." to="Player" method="StartGameHandler"]
+[connection signal="MazeSizeChange" from="Menu" to="." method="on_menu_maze_size_change"]
+[connection signal="StartGame" from="Menu" to="." method="on_start_pressed"]
+[connection signal="body_entered" from="Meta" to="." method="on_meta_body_entered"]
