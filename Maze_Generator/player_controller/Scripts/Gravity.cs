@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 
 namespace PolarBears.PlayerControllerAddon;
 
@@ -11,9 +11,9 @@ public partial class Gravity: Node3D
 	[Export(PropertyHint.Range, "0.01,10,0.01,or_greater")]
 	public float AdditionalGravityPower { get; set; } = 2f;
 
-	const float JumpFudgeFactor = 6.94e-3f;
+	const float JumpFudgeFactor = 6.94e-3f;//0.00694
 
-	private float _gravity;
+    private float _gravity;
 
 	public void Init(float gravitySetting)
 	{

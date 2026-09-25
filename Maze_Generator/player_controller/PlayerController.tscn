@@ -156,6 +156,7 @@ mouse_filter = 2
 
 [node name="CLBlur(Layer_2)" type="CanvasLayer" parent="Head/CameraSmooth/Camera3D" unique_id=274649791]
 layer = 2
+visible = false
 
 [node name="BlurRect" type="ColorRect" parent="Head/CameraSmooth/Camera3D/CLBlur(Layer_2)" unique_id=1614737875]
 material = SubResource("ShaderMaterial_o1np4")
@@ -191,14 +192,15 @@ script = ExtResource("9_lsueh")
 
 [node name="Bobbing" type="Node3D" parent="." unique_id=721493828]
 script = ExtResource("10_7wk1w")
-BobbingFrequency = 0.68
-BobbingAmplitude = 0.01
+BobbingFrequency = 0.0
+BobbingAmplitude = 0.0
 
 [node name="Mouse" type="Node3D" parent="." unique_id=206680016]
 script = ExtResource("11_huhen")
 
 [node name="FieldOfView" type="Node3D" parent="." unique_id=1150034087]
 script = ExtResource("12_m2mxi")
+BaseFov = 90.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=285004911]
 libraries/ = SubResource("AnimationLibrary_vd0e2")
@@ -221,3 +223,4 @@ target_position = Vector3(0, 1, 0)
 [node name="HeadCollisionDetector3" type="RayCast3D" parent="HeadCollisionDetectors" unique_id=1367313526]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.296, 1.4, 0)
 target_position = Vector3(0, 1, 0)
+collide_with_areas = true

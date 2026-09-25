@@ -70,7 +70,7 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_fbeoh")
 
 [node name="Segment-Square1" type="Node3D" unique_id=480711377 groups=["mazeblock"]]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, 2.5, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_qecyw")
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1881766866]
@@ -84,15 +84,13 @@ mesh = SubResource("BoxMesh_ftfdk")
 surface_material_override/0 = SubResource("StandardMaterial3D_hu1lm")
 
 [node name="Ceiling" type="StaticBody3D" parent="." unique_id=1720675056]
-transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0.9, 0)
-visible = false
-collision_layer = 0
-collision_mask = 0
+transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 1.0076038, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling" unique_id=379090741]
 shape = SubResource("BoxShape3D_ftfdk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ceiling" unique_id=605885589]
+visible = false
 mesh = SubResource("BoxMesh_ftfdk")
 
 [node name="WallN" type="StaticBody3D" parent="." unique_id=1288388446]

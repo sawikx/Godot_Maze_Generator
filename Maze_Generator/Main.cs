@@ -35,18 +35,43 @@ public partial class Main : Node
 
 		int ile = 0;
 		Dictionary<long, List<string>> Road = new Dictionary<long, List<string>>();
+	   
 		while (Road.Count < NumberOfBlocksInMaze)
-		{
+		{			
 			if (RoadReturn.Count == 0 && Road.Count != 0)
 			{				
 				break;
 			}
+
+			float randomFloat = GD.Randf(); //chance to different wall versions
+			float[] randomtablechance = [0.70f,0.76f,0.90f,0.95f];
+
+
 			List<string> RoadPossible = new List<string>();
 			if (Move + SideLengthMaze <= NumberOfBlocksInMaze - 1)
 			{
 				if (!Road.ContainsKey(Move + SideLengthMaze))//N
 				{
-					RoadPossible.Add("N");
+					if (randomFloat < randomtablechance[0])
+					{
+						RoadPossible.Add("N");
+					}
+					else if (randomFloat < randomtablechance[1])
+					{
+						RoadPossible.Add("Nu");
+					}
+					else if (randomFloat < randomtablechance[2])
+					{
+						RoadPossible.Add("Nd");
+					}
+					else if(randomFloat < randomtablechance[3])
+					{
+						RoadPossible.Add("Nl");
+					}
+					else
+					{
+						RoadPossible.Add("Nr");
+					}
 					 
 				}				
 			}
@@ -54,28 +79,85 @@ public partial class Main : Node
 			{
 				if (!Road.ContainsKey(Move - SideLengthMaze))//S
 				{
-					RoadPossible.Add("S");
-					 
+					if (randomFloat < randomtablechance[0])
+					{
+						RoadPossible.Add("S");
+					}
+					else if (randomFloat < randomtablechance[1])
+					{
+						RoadPossible.Add("Su");
+					}
+					else if (randomFloat < randomtablechance[2])
+					{
+						RoadPossible.Add("Sd");
+					}
+					else if (randomFloat < randomtablechance[3])
+					{
+						RoadPossible.Add("Sl");
+					}
+					else
+					{
+						RoadPossible.Add("Sr");
+					}
+
 				}                
 			}
 			if (Move % SideLengthMaze +1 != SideLengthMaze)
 			{
 				if (!Road.ContainsKey(Move + 1))//W
 				{
-					RoadPossible.Add("W");
-					 
+					if (randomFloat < randomtablechance[0])
+					{
+						RoadPossible.Add("W");
+					}
+					else if (randomFloat < randomtablechance[1])
+					{
+						RoadPossible.Add("Wu");
+					}
+					else if (randomFloat < randomtablechance[2])
+					{
+						RoadPossible.Add("Wd");
+					}
+					else if (randomFloat < randomtablechance[3])
+					{
+						RoadPossible.Add("Wl");
+					}
+					else
+					{
+						RoadPossible.Add("Wr");
+					}
+
 				}                
 			}			
 			if (Move % SideLengthMaze != 0)
 			{
 				if (!Road.ContainsKey(Move - 1))//E
 				{
-					RoadPossible.Add("E");
-					
+					if (randomFloat < randomtablechance[0])
+					{
+						RoadPossible.Add("E");
+					}
+					else if (randomFloat < randomtablechance[1])
+					{
+						RoadPossible.Add("Eu");
+					}
+					else if (randomFloat < randomtablechance[2])
+					{
+						RoadPossible.Add("Ed");
+					}
+					else if (randomFloat < randomtablechance[3])
+					{
+						RoadPossible.Add("El");
+					}
+					else
+					{
+						RoadPossible.Add("Er");
+					}
+
 				}                
 			}
 			//GD.Print();
-			if (RoadPossible.Count == 0)//Beck
+			if (RoadPossible.Count == 0)//return
 			{
 				//GD.Print();
 				if (MetaPosiblilitiAdded)
@@ -92,24 +174,24 @@ public partial class Main : Node
 				MetaPosiblilitiAdded = true;
 				string Directions = RoadPossible[GD.RandRange(0, RoadPossible.Count() - 1)];
 				RoadPossible.Remove(Directions);
-				//GD.Print();
+				//GD.Print(Directions +" "+ Reverser(Directions));
 				AddOrUpdate(Road, Move, Directions);
 								
 				RoadReturn.Add(unchecked((int)Move));
 				//GD.Print();
-				if (Directions == "N")
+				if (Directions[0] == 'N')
 				{
 					Move += SideLengthMaze;
 				}
-				else if (Directions == "S")
+				else if (Directions[0] == 'S')
 				{
 					Move -= SideLengthMaze;
 				}
-				else if (Directions == "W")
+				else if (Directions[0] == 'W')
 				{
 					Move++;
 				}
-				else if (Directions == "E")
+				else if (Directions[0] == 'E')
 				{
 					Move--;
 				}
@@ -134,22 +216,37 @@ public partial class Main : Node
 				segment1.PositionSpawn(lokalizacjaPokoj);
 				if (ii * SideLengthMaze + jj == StartLocation)
 				{
-					GetNode<CharacterBody3D>("Player").Position = new Vector3(jj*2, 1f, ii*2);
+					//GetNode<CharacterBody3D>("Player").Position = new Vector3(jj*2, 1f, ii*2);
+					//GD.Print(jj+"x,  z"+ii+" try:"+ StartLocation% SideLengthMaze+" "+ StartLocation/SideLengthMaze);
 				}
 				if (ii * SideLengthMaze + jj == MetaPosition)
 				{
 					GetNode<Area3D>("Meta").Position = new Vector3(jj * 2, 0.1f, ii * 2);
 				}
-				foreach (var i in Road[ii*SideLengthMaze+jj]) 
+				//GD.Print(randomFloat+".");
+
+				bool whenup = (GD.Randi() % 2 == 0) ? true : false;
+
+				foreach (var i in Road[ii * SideLengthMaze + jj])
 				{
 					//GD.Print(ii * SideLengthMaze + jj +" wall -> "+i);
-					segment1.RemoveWall(i);
-				}
+					if (i.Length == 1)
+					{
+						segment1.RemoveWall(i);
+					}
+					else
+					{
+						segment1.ResizeWall(i);
+
+					}
+					
+				}			
 					
 				AddChild(segment1);
 				//GD.Print("T"+i+" "+j);							
 			}
 		}
+		GetNode<CharacterBody3D>("Player").Position = new Vector3(StartLocation % SideLengthMaze * 2, 1f, StartLocation / SideLengthMaze * 2);
 	}
 
 	private void AddOrUpdate(Dictionary<long, List<string>> targetDictionary, long key, string entry)
@@ -162,23 +259,27 @@ public partial class Main : Node
 		targetDictionary[key].Add(entry);
 	}
 
-	private string Reverser(string Directions)
+	private string Reverser(string directions)
 	{
-		if (Directions == "N")
-		{
-			return  "S";
+		string Directions = directions;
+		if (Directions[0] == 'N')
+		{			
+			return Directions.Replace('N', 'S');
 		}
-		else if (Directions == "S")
+		else if (Directions[0] == 'S')
 		{
-			return "N";
+			
+			return Directions.Replace('S', 'N');
 		}
-		else if (Directions == "W")
+		else if (Directions[0] == 'W')
 		{
-			return "E";
+			
+			return Directions.Replace('W', 'E');
 		}
-		else if (Directions == "E")
+		else if (Directions[0] == 'E')
 		{
-			return  "W";
+			
+			return Directions.Replace('E', 'W');
 		}
 		else
 		{
@@ -218,9 +319,14 @@ public partial class Main : Node
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		
 	}
-
+	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
-	{	   
+	{
+
+		if (GetNode<CharacterBody3D>("Player").Position.Y < -100f)
+		{
+			GetNode<CharacterBody3D>("Player").Position = new Vector3(GetNode<CharacterBody3D>("Player").Position.X, 0.5f, GetNode<CharacterBody3D>("Player").Position.Z);
+		}
 	}
 }

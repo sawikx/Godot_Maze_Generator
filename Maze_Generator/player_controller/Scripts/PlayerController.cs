@@ -152,7 +152,7 @@ public partial class PlayerController : CharacterBody3D
 			{
 				_lastFrameWasOnFloor = Engine.GetPhysicsFrames();
 			}
-
+			
 			// Adding the gravity
 			if (!isOnFloorCustom())
 			{
