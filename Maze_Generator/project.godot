@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="LabiryntV2"
+config/name="Godot_Maze_Generator"
 run/main_scene="uid://bw1nli4ma1a7v"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
@@ -43,3 +43,4 @@ jolt_physics_3d/limits/max_bodies=30240
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+occlusion_culling/use_occlusion_culling=true

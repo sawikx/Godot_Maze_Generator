@@ -46,6 +46,7 @@ offset_top = 159.0
 offset_right = 466.5
 offset_bottom = 190.0
 text = "3"
+emoji_menu_enabled = false
 
 [connection signal="pressed" from="Control/Start" to="." method="on_start_pressed"]
-[connection signal="text_submitted" from="Control/MazeSize" to="." method="on_maze_size_text_submitted"]
+[connection signal="text_changed" from="Control/MazeSize" to="." method="on_maze_size_text_submitted"]

@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+
 public partial class Main : Node
 {
 
@@ -27,30 +28,32 @@ public partial class Main : Node
 		var NumberOfBlocksInMaze = SideLengthMaze * SideLengthMaze;
 		var StartLocation = random.Randi() % NumberOfBlocksInMaze;
 		//GD.Print(StartLocation);        
-		List<int> RoadReturn = new List<int>();		
+		List<int> RoadReturn = new List<int>();
+		List<long> Road = new List<long>();
 		var Move  = StartLocation;
-
+		
 		List<int> MetaPosibliliti = new List<int>();
 		bool MetaPosiblilitiAdded = true;
 
 		int ile = 0;
-		Dictionary<long, List<string>> Road = new Dictionary<long, List<string>>();
-	   
-		while (Road.Count < NumberOfBlocksInMaze)
+		Dictionary<long, List<string>> SegmentAppearance = new Dictionary<long, List<string>>();
+		
+		while (SegmentAppearance.Count < NumberOfBlocksInMaze)
 		{			
-			if (RoadReturn.Count == 0 && Road.Count != 0)
+			if (RoadReturn.Count == 0 && SegmentAppearance.Count != 0)
 			{				
 				break;
-			}
+			}            
 
 			float randomFloat = GD.Randf(); //chance to different wall versions
 			float[] randomtablechance = [0.70f,0.76f,0.90f,0.95f];
 
+			
 
 			List<string> RoadPossible = new List<string>();
 			if (Move + SideLengthMaze <= NumberOfBlocksInMaze - 1)
 			{
-				if (!Road.ContainsKey(Move + SideLengthMaze))//N
+				if (!Road.Contains(Move + SideLengthMaze))//N
 				{
 					if (randomFloat < randomtablechance[0])
 					{
@@ -77,7 +80,7 @@ public partial class Main : Node
 			}
 			if (Move - SideLengthMaze >= 0)
 			{
-				if (!Road.ContainsKey(Move - SideLengthMaze))//S
+				if (!Road.Contains(Move - SideLengthMaze))//S
 				{
 					if (randomFloat < randomtablechance[0])
 					{
@@ -104,7 +107,7 @@ public partial class Main : Node
 			}
 			if (Move % SideLengthMaze +1 != SideLengthMaze)
 			{
-				if (!Road.ContainsKey(Move + 1))//W
+				if (!Road.Contains(Move + 1))//W
 				{
 					if (randomFloat < randomtablechance[0])
 					{
@@ -131,7 +134,7 @@ public partial class Main : Node
 			}			
 			if (Move % SideLengthMaze != 0)
 			{
-				if (!Road.ContainsKey(Move - 1))//E
+				if (!Road.Contains(Move - 1))//E
 				{
 					if (randomFloat < randomtablechance[0])
 					{
@@ -170,14 +173,76 @@ public partial class Main : Node
 				RoadReturn.Remove(unchecked((int)Move));				
 			}			
 			else
-			{
+			{				
+				if (!Road.Contains(Move)) Road.Add(Move);
 				MetaPosiblilitiAdded = true;
 				string Directions = RoadPossible[GD.RandRange(0, RoadPossible.Count() - 1)];
 				RoadPossible.Remove(Directions);
 				//GD.Print(Directions +" "+ Reverser(Directions));
-				AddOrUpdate(Road, Move, Directions);
-								
+				AddOrUpdate(SegmentAppearance, Move, Directions);			
 				RoadReturn.Add(unchecked((int)Move));
+
+				if (RoadPossible.Count > 1)
+				{
+					float SegmentAdditionalToRemove = GD.Randf(); //chance to different wall versions
+					float[] SegmentAdditionalToRemoveRandomTableChance = [0.85f, 0.95f, 0.99f]; // 0 - not, 1 - one more wall ...
+																								//int[] SegmentAdditionalToRemove = [1, 2, 3];
+					int SegmentAdditional;
+
+					if (SegmentAdditionalToRemove < SegmentAdditionalToRemoveRandomTableChance[0])
+					{
+						SegmentAdditional = 0;
+					}
+					else if (SegmentAdditionalToRemove < SegmentAdditionalToRemoveRandomTableChance[1])
+					{
+						SegmentAdditional = 1;
+					}
+					else if (SegmentAdditionalToRemove < SegmentAdditionalToRemoveRandomTableChance[2])
+					{
+						SegmentAdditional = 2;
+					}
+					else
+					{
+						SegmentAdditional = 3;
+					}
+
+					if (RoadPossible.Count < SegmentAdditional) 
+					{
+						SegmentAdditional = RoadPossible.Count;
+					}
+
+					for (int i1 = 0; i1 < SegmentAdditional; i1++)
+					{
+						long MoveAdditional = Move;
+						GD.Print(GD.RandRange(0, RoadPossible.Count() - 1) + " los | " + RoadPossible.Count() + " cout|  ile+" + SegmentAdditional);
+						string Directions2 = RoadPossible[GD.RandRange(0, RoadPossible.Count() - 1)];
+						RoadPossible.Remove(Directions2);
+						AddOrUpdate(SegmentAppearance, Move, Directions2);
+						GD.Print(MoveAdditional + " "+Directions2);
+
+						if (Directions2[0] == 'N')
+						{
+							MoveAdditional += SideLengthMaze;
+						}
+						else if (Directions2[0] == 'S')
+						{
+							
+							MoveAdditional -= SideLengthMaze;
+						}
+						else if (Directions2[0] == 'W')
+						{                            
+							MoveAdditional++;
+						}
+						else if (Directions2[0] == 'E')
+						{                            
+							MoveAdditional--;
+						}
+						GD.Print(MoveAdditional + " " + Reverser(Directions2));
+						AddOrUpdate(SegmentAppearance, MoveAdditional, Reverser(Directions2));
+
+					}
+
+				}
 				//GD.Print();
 				if (Directions[0] == 'N')
 				{
@@ -194,8 +259,9 @@ public partial class Main : Node
 				else if (Directions[0] == 'E')
 				{
 					Move--;
-				}
-				AddOrUpdate(Road, Move, Reverser(Directions));
+				}				
+				AddOrUpdate(SegmentAppearance, Move, Reverser(Directions));
+				Road.Add(Move);
 			}
 			ile++;
 		}
@@ -227,7 +293,7 @@ public partial class Main : Node
 
 				bool whenup = (GD.Randi() % 2 == 0) ? true : false;
 
-				foreach (var i in Road[ii * SideLengthMaze + jj])
+				foreach (var i in SegmentAppearance[ii * SideLengthMaze + jj])
 				{
 					//GD.Print(ii * SideLengthMaze + jj +" wall -> "+i);
 					if (i.Length == 1)

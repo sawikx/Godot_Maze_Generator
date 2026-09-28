@@ -66,8 +66,8 @@ public partial class SegmentSquare1 : Node3D
 		WallW = GetNode<StaticBody3D>("WallW");
 		WallE = GetNode<StaticBody3D>("WallE");
 
-		float wallPositionY = WallN.Position.Y;
-		float wallScaleY = WallN.Position.Y;  
+		float wallPositionY = 0.5f;
+		float wallScaleY = 0.5f;  
 
 		if (WallToResize[1] == 'u') //u->UP | position of wall
 		{
