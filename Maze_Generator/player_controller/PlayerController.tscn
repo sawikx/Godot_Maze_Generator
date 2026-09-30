@@ -144,6 +144,7 @@ mouse_filter = 2
 
 [node name="CLDistortion(Layer_2)" type="CanvasLayer" parent="Head/CameraSmooth/Camera3D" unique_id=575076714]
 layer = 2
+visible = false
 
 [node name="HealthDistortionRect" type="ColorRect" parent="Head/CameraSmooth/Camera3D/CLDistortion(Layer_2)" unique_id=1865006562]
 material = ExtResource("3_mxh1y")

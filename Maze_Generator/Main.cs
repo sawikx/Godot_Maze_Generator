@@ -13,6 +13,9 @@ public partial class Main : Node
 	[Signal]
 	delegate void EndGameEventHandler();
 
+	[Signal]
+	delegate void CameraChangeEventHandler();
+
 	[Export]
 	public PackedScene Segment1 { get; set; }
 
@@ -33,6 +36,7 @@ public partial class Main : Node
 		var Move  = StartLocation;
 		
 		List<int> MetaPosibliliti = new List<int>();
+		List<float> MetaPosiblilitiProbabilities = new List<float>();
 		bool MetaPosiblilitiAdded = true;
 
 		int ile = 0;
@@ -45,10 +49,8 @@ public partial class Main : Node
 				break;
 			}            
 
-			float randomFloat = GD.Randf(); //chance to different wall versions
-			float[] randomtablechance = [0.70f,0.76f,0.90f,0.95f];
-
-			
+			float randomFloat = GD.Randf(); //chance to different wall verswions
+			float[] randomtablechance = [0.70f, 0.75f, 0.85f, 0.90f, 0.95f];//[0.70f,0.75f,0.85f,0.90f,0.95f] [0.10f,0.15f,0.25f,0.30f,0.35f]
 
 			List<string> RoadPossible = new List<string>();
 			if (Move + SideLengthMaze <= NumberOfBlocksInMaze - 1)
@@ -71,9 +73,13 @@ public partial class Main : Node
 					{
 						RoadPossible.Add("Nl");
 					}
-					else
+					else if (randomFloat < randomtablechance[4])
 					{
 						RoadPossible.Add("Nr");
+					}
+					else
+					{
+						RoadPossible.Add("Nm");
 					}
 					 
 				}				
@@ -98,9 +104,13 @@ public partial class Main : Node
 					{
 						RoadPossible.Add("Sl");
 					}
-					else
+					else if (randomFloat < randomtablechance[4])
 					{
 						RoadPossible.Add("Sr");
+					}
+					else
+					{
+						RoadPossible.Add("Sm");
 					}
 
 				}                
@@ -125,9 +135,13 @@ public partial class Main : Node
 					{
 						RoadPossible.Add("Wl");
 					}
-					else
+					if (randomFloat < randomtablechance[4])
 					{
 						RoadPossible.Add("Wr");
+					}
+					else
+					{
+						RoadPossible.Add("Wm");
 					}
 
 				}                
@@ -152,9 +166,13 @@ public partial class Main : Node
 					{
 						RoadPossible.Add("El");
 					}
-					else
+					if (randomFloat < randomtablechance[4])
 					{
 						RoadPossible.Add("Er");
+					}
+					else
+					{
+						RoadPossible.Add("Em");
 					}
 
 				}                
@@ -166,6 +184,7 @@ public partial class Main : Node
 				if (MetaPosiblilitiAdded)
 				{
 					MetaPosibliliti.Add(unchecked((int)Move));
+					MetaPosiblilitiProbabilities.Add(RoadReturn.Count);
 					MetaPosiblilitiAdded = false;
 				}
 				
@@ -214,11 +233,11 @@ public partial class Main : Node
 					for (int i1 = 0; i1 < SegmentAdditional; i1++)
 					{
 						long MoveAdditional = Move;
-						GD.Print(GD.RandRange(0, RoadPossible.Count() - 1) + " los | " + RoadPossible.Count() + " cout|  ile+" + SegmentAdditional);
+						//GD.Print(GD.RandRange(0, RoadPossible.Count() - 1) + " los | " + RoadPossible.Count() + " cout|  ile+" + SegmentAdditional);
 						string Directions2 = RoadPossible[GD.RandRange(0, RoadPossible.Count() - 1)];
 						RoadPossible.Remove(Directions2);
 						AddOrUpdate(SegmentAppearance, Move, Directions2);
-						GD.Print(MoveAdditional + " "+Directions2);
+						//GD.Print(MoveAdditional + " "+Directions2);
 
 						if (Directions2[0] == 'N')
 						{
@@ -237,7 +256,7 @@ public partial class Main : Node
 						{                            
 							MoveAdditional--;
 						}
-						GD.Print(MoveAdditional + " " + Reverser(Directions2));
+						//GD.Print(MoveAdditional + " " + Reverser(Directions2));
 						AddOrUpdate(SegmentAppearance, MoveAdditional, Reverser(Directions2));
 
 					}
@@ -268,10 +287,12 @@ public partial class Main : Node
 		if (MetaPosibliliti.Count == 0)
 		{
 			MetaPosibliliti.Add(unchecked((int)Move));
+			MetaPosiblilitiProbabilities.Add(1);
 		}
 		//room creation
-		//GD.Print("---------");
-		int MetaPosition = MetaPosibliliti[GD.RandRange(0, MetaPosibliliti.Count() - 1)];
+		//GD.Print("---------");		
+		int gfrh = unchecked((int)random.RandWeighted(MetaPosiblilitiProbabilities.ToArray()));
+		int MetaPosition = MetaPosibliliti[unchecked((int)random.RandWeighted(MetaPosiblilitiProbabilities.ToArray()))];
 
 		for (int ii = 0; ii < SideLengthMaze; ii++)
 		{
@@ -376,7 +397,7 @@ public partial class Main : Node
 
 	public void on_menu_maze_size_change(string NewMazeSize)
 	{
-		SizeOfMaze = int.Parse(NewMazeSize);
+		if(int.TryParse(NewMazeSize,out int res)) SizeOfMaze = int.Parse(NewMazeSize);
 	}
 
  // Called when the node enters the scene tree for the first time.
@@ -384,6 +405,23 @@ public partial class Main : Node
 	{
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("camera"))
+		{
+			//GD.Print("tak " + GetNode<Camera3D>("Marker3D/Camera3D").Current);
+			if (GetNode<Camera3D>("Marker3D/Camera3D").Current)
+			{
+				EmitSignal(SignalName.CameraChange);
+			}
+			else
+			{
+				EmitSignal(SignalName.StartGame);
+				GetNode<Camera3D>("Marker3D/Camera3D").MakeCurrent();
+			}
+		}
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -394,5 +432,28 @@ public partial class Main : Node
 		{
 			GetNode<CharacterBody3D>("Player").Position = new Vector3(GetNode<CharacterBody3D>("Player").Position.X, 0.5f, GetNode<CharacterBody3D>("Player").Position.Z);
 		}
+
+		if (GetNode<Camera3D>("Marker3D/Camera3D").Current)
+		{
+			float speedc =  0.05f;
+
+			if (Input.IsActionPressed("move_left"))
+			{
+				GetNode<Marker3D>("Marker3D").Position -= new Vector3(speedc, 0, 0);
+			}
+			if (Input.IsActionPressed("move_right"))
+			{
+				GetNode<Marker3D>("Marker3D").Position += new Vector3(speedc, 0,  0);
+			}
+			if (Input.IsActionPressed("move_forward"))
+			{
+				GetNode<Marker3D>("Marker3D").Position -= new Vector3( 0, 0, speedc);
+			}
+			if (Input.IsActionPressed("move_back"))
+			{
+				GetNode<Marker3D>("Marker3D").Position += new Vector3(0, 0, speedc);
+			}
+		}
+
 	}
 }

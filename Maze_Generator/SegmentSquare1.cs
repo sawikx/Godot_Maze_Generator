@@ -74,54 +74,59 @@ public partial class SegmentSquare1 : Node3D
 			wallPositionY = 0.65f;
 			wallScaleY = 0.6f;
 		}
-		if (WallToResize[1] == 'd') //d->Down | position of wall
+		else if (WallToResize[1] == 'd') //d->Down | position of wall
 		{
 			wallPositionY = 0.2f;
 			wallScaleY = 0.3f;
 		}
-		 //l->Left | position of wall        
-		 //r->Richt | position of wall
-		
+		else
+		{
+			wallPositionY = 0.5f;
+			wallScaleY = 0.9f;
+		}
+		//l->Left | position of wall        
+		//r->Richt | position of wall
+		//m->Midle | position of wall
 
 		if (WallToResize[0] == 'N')
 		{
-			float wallPositionX = (WallToResize[1] == 'r') ? 0.2f: (WallToResize[1] == 'l')?-0.2f :WallN.Position.X;
-			float wallScaleX = (WallToResize[1] == 'r' || WallToResize[1] == 'l')? 0.4f: WallN.Scale.X;
+			float wallPositionX = (WallToResize[1] == 'r') ? 0.2f: (WallToResize[1] == 'l')?-0.2f : 0f;
+			float wallScaleX = (WallToResize[1] == 'r' || WallToResize[1] == 'l')? 0.4f : (WallToResize[1] == 'm')?0.22f: 0.8f;
 
-			float wallPositionZ = WallN.Position.Z;
-			float wallScaleZ = WallN.Scale.Z;
+			float wallPositionZ = 0.45f;
+			float wallScaleZ = 0.1f;
 
-			WallN.Scale = new Vector3(wallScaleX, (WallToResize[1] == 'r' || WallToResize[1] == 'l') ?0.9f:wallScaleY, wallScaleZ);
+			WallN.Scale = new Vector3(wallScaleX, wallScaleY, wallScaleZ);
 			WallN.Position = new Vector3(wallPositionX, wallPositionY, wallPositionZ);
 		}
 		else if (WallToResize[0] == 'S')
 		{
-			float wallPositionX = (WallToResize[1] == 'r') ? 0.2f : (WallToResize[1] == 'l') ? -0.2f : WallS.Position.X;
-			float wallScaleX = (WallToResize[1] == 'r' || WallToResize[1] == 'l') ? 0.4f : WallS.Scale.X;
-			float wallPositionZ = WallS.Position.Z;
-			float wallScaleZ = WallS.Scale.Z;
+			float wallPositionX = (WallToResize[1] == 'r') ? 0.2f : (WallToResize[1] == 'l') ? -0.2f : 0f;
+			float wallScaleX = (WallToResize[1] == 'r' || WallToResize[1] == 'l') ? 0.4f : (WallToResize[1] == 'm') ? 0.22f : 0.8f;
+			float wallPositionZ = -0.45f;
+			float wallScaleZ = 0.1f;
 
-			WallS.Scale = new Vector3(wallScaleX, (WallToResize[1] == 'r' || WallToResize[1] == 'l')? 0.9f : wallScaleY, wallScaleZ);
+			WallS.Scale = new Vector3(wallScaleX, wallScaleY, wallScaleZ);
 			WallS.Position = new Vector3(wallPositionX, wallPositionY, wallPositionZ);
 		}
 		else if (WallToResize[0] == 'W')
 		{
-			float wallPositionX = WallW.Position.X;
-			float wallScaleX = WallW.Scale.X;
-			float wallPositionZ = (WallToResize[1] == 'r') ? 0.2f : (WallToResize[1] == 'l') ? -0.2f : WallW.Position.Z;
-			float wallScaleZ = (WallToResize[1] == 'r' || WallToResize[1] == 'l') ? 0.4f : WallW.Scale.Z;
+			float wallPositionX = 0.45f;
+			float wallScaleX = 0.1f;
+			float wallPositionZ = (WallToResize[1] == 'r') ? 0.2f : (WallToResize[1] == 'l') ? -0.2f : 0f;
+			float wallScaleZ = (WallToResize[1] == 'r' || WallToResize[1] == 'l') ? 0.4f : (WallToResize[1] == 'm') ? 0.22f : 0.8f;
 
-			WallW.Scale = new Vector3(wallScaleX, (WallToResize[1] == 'r' || WallToResize[1] == 'l') ? 0.9f : wallScaleY, wallScaleZ);
+			WallW.Scale = new Vector3(wallScaleX, wallScaleY, wallScaleZ);
 			WallW.Position = new Vector3(wallPositionX, wallPositionY, wallPositionZ);
 		}
 		else if (WallToResize[0] == 'E')
 		{
-			float wallPositionX = WallE.Position.X;
-			float wallScaleX = WallE.Scale.X;
-			float wallPositionZ = (WallToResize[1] == 'r') ? 0.2f : (WallToResize[1] == 'l') ? -0.2f : WallE.Position.Z;
-			float wallScaleZ = (WallToResize[1] == 'r' || WallToResize[1] == 'l') ? 0.4f : WallE.Scale.Z;
+			float wallPositionX = -0.45f;
+			float wallScaleX = 0.1f;
+			float wallPositionZ = (WallToResize[1] == 'r') ? 0.2f : (WallToResize[1] == 'l') ? -0.2f : 0f;
+			float wallScaleZ = (WallToResize[1] == 'r' || WallToResize[1] == 'l') ? 0.4f : (WallToResize[1] == 'm') ? 0.22f : 0.8f;
 
-			WallE.Scale = new Vector3(wallScaleX, (WallToResize[1] == 'r' || WallToResize[1] == 'l') ? 0.9f : wallScaleY, wallScaleZ);
+			WallE.Scale = new Vector3(wallScaleX, wallScaleY, wallScaleZ);
 			WallE.Position = new Vector3(wallPositionX, wallPositionY, wallPositionZ);
 		}
 		

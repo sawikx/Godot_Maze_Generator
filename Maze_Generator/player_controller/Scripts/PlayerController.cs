@@ -61,13 +61,22 @@ public partial class PlayerController : CharacterBody3D
 	private bool _wasHeadPreviouslyTouchingCeiling = false;
 
 	//[Export]
-	public bool StartGame = true;
+	public bool ActivePlayer = true;
 	public void StartGameHandler()
 	{
-		StartGame = !StartGame;
+		ActivePlayer = !ActivePlayer;
 	}
 
-	public override void _Ready()
+	public void on_main_camera_change()
+	{
+		//GD.Print("camera " + ActivePlayer);
+		StartGameHandler();
+        GetNode<Camera3D>("Head/CameraSmooth/Camera3D").MakeCurrent();// .Current = !GetNode<Camera3D>("Head/CameraSmooth/Camera3D").Current;
+		
+    }
+
+
+    public override void _Ready()
 	{
 		_currentSpeed = WalkSpeed;
 		
@@ -145,7 +154,7 @@ public partial class PlayerController : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!StartGame)
+		if (!ActivePlayer)
 		{
 
 			if (isOnFloorCustom())
@@ -343,8 +352,7 @@ public partial class PlayerController : CharacterBody3D
 				{
 					downStairsCheckResult.Update(this);
 				}
-			}
-
+			}			
 			StairsSystem.SlideCameraParams slideCameraParams = new StairsSystem.SlideCameraParams
 			{
 				CurrentSpeedGreaterThanWalkSpeed = _currentSpeed > WalkSpeed,

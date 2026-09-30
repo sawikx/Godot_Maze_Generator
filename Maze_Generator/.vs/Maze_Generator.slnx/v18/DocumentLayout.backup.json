@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\SegmentSquare1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SegmentSquare1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\player_controller\\Scripts\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:player_controller\\Scripts\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\player_controller\\Scripts\\Stamina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:player_controller\\Scripts\\Stamina.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\SegmentSquare1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SegmentSquare1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\Menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -40,7 +40,7 @@
               "RelativeDocumentMoniker": "Main.cs",
               "ToolTip": "D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\Main.cs",
               "RelativeToolTip": "Main.cs",
-              "ViewState": "AgIAABkBAAAAAAAAAAAAACEBAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAJoBAAAAAAAAAAAAAKUBAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-09-28T14:11:41.461Z",
               "IsPinned": true,
@@ -49,32 +49,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SegmentSquare1.cs",
-              "DocumentMoniker": "D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\SegmentSquare1.cs",
-              "RelativeDocumentMoniker": "SegmentSquare1.cs",
-              "ToolTip": "D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\SegmentSquare1.cs",
-              "RelativeToolTip": "SegmentSquare1.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAmwH4AAAB4AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-28T14:18:42.986Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\player_controller\\Scripts\\PlayerController.cs",
               "RelativeDocumentMoniker": "player_controller\\Scripts\\PlayerController.cs",
               "ToolTip": "D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\player_controller\\Scripts\\PlayerController.cs",
               "RelativeToolTip": "player_controller\\Scripts\\PlayerController.cs",
-              "ViewState": "AgIAABkBAAAAAAAAAAAAAEwBAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAEABAAAAAAAAAAAAAEwBAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-09-29T12:57:07.585Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Stamina.cs",
               "DocumentMoniker": "D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\player_controller\\Scripts\\Stamina.cs",
               "RelativeDocumentMoniker": "player_controller\\Scripts\\Stamina.cs",
@@ -82,7 +69,21 @@
               "RelativeToolTip": "player_controller\\Scripts\\Stamina.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAACoAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-29T16:42:35.462Z"
+              "WhenOpened": "2026-09-29T16:42:35.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SegmentSquare1.cs",
+              "DocumentMoniker": "D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\SegmentSquare1.cs",
+              "RelativeDocumentMoniker": "SegmentSquare1.cs",
+              "ToolTip": "D:\\Gry Godot\\Godot_Maze_Generator\\Maze_Generator\\SegmentSquare1.cs",
+              "RelativeToolTip": "SegmentSquare1.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAEQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-28T14:18:42.986Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
